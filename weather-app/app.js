@@ -7,20 +7,21 @@ if (!location) {
 	console.log("Please provide valid location")
 }
 else {
-	geocode(location, (error, data) => {
+								//object destructuring
+	geocode(location, (error, {latitude, longitude, location} = {}) => {
 		if (error){
 			console.log('Error', error)
 		}
 		else{
-			forecast(data.latitude, data.longitude, (error, forecastData) => {
+			forecast(latitude, longitude, (error, {description, currenttemperature, feelslike} = {}) => {
 				if (error){
 					console.log('Error', error)
 				}
 		  		
-		  		console.log(data.location)
-		  		console.log(forecastData.description)
-		  		console.log("It is currently " + forecastData.currenttemperature + " degrees outside")
-		  		console.log("It feels like " + forecastData.feelslike + " degrees")
+		  		console.log(location)
+		  		console.log(description)
+		  		console.log("It is currently " + currenttemperature + " degrees outside")
+		  		console.log("It feels like " + feelslike + " degrees")
 			})
 		}
 	})
